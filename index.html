@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muskaan's Cosmic Love</title>
+    <style>
+        :root {
+            --space-blue: #0a0a2e;
+            --neon-purple: #bc13fe;
+            --starry-yellow: #fffacd;
+            --galaxy-pink: #cc4fad;
+            --bg-gradient: linear-gradient(135deg, #000428 0%, #004e92 30%, #2b1055 70%, #4b0082 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--starry-yellow);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated Stars Background */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: rgb(104, 223, 193);
+            border-radius: 50%;
+            animation: twinkle 1s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Password Gateway */
+        #gateway {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .cosmic-gate {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 25px;
+            border: 2px solid var(--neon-purple);
+            box-shadow: 0 0 40px rgba(188, 19, 254, 0.3);
+        }
+
+        #access-form input {
+            background: transparent;
+            border: 2px solid var(--galaxy-pink);
+            color: var(--starry-yellow);
+            padding: 15px 25px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        #access-form button {
+            background: var(--neon-purple);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #access-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--neon-purple);
+        }
+
+        /* Main Content */
+        #main-frame {
+            display: none;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Galaxy Gallery */
+        .galaxy-grid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 75vh;
+            perspective: 1000px;
+        }
+
+        .cosmic-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            opacity: 0;
+            transform: rotateY(20deg) scale(0.8);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 40px rgba(188, 19, 254, 0.2);
+            border: 2px solid var(--neon-purple);
+        }
+
+        .cosmic-card.active {
+            opacity: 1;
+            transform: rotateY(0deg) scale(1);
+            z-index: 2;
+        }
+
+        .cosmic-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* Love Message */
+        .cosmic-message {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            max-width: 80%;
+            border: 1px solid var(--galaxy-pink);
+        }
+
+        /* Music Controls */
+        .music-orb {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--neon-purple);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(188, 19, 254, 0.5);
+            transition: all 0.3s;
+        }
+
+        .music-orb:hover {
+            transform: scale(1.1);
+        }
+
+        /* Shayri Display */
+        #shayri-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 80%;
+            backdrop-filter: blur(10px);
+            display: none;
+            border: 2px solid var(--galaxy-pink);
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Stars -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Password Gateway -->
+    <div id="gateway">
+        <div class="cosmic-gate">
+            <h2 style="margin-bottom: 1.5rem; color: var(--galaxy-pink);">🔐 Cosmic Love Portal 🔐</h2>
+            <form id="access-form">
+                <input type="password" id="passkey" placeholder="Enter Starlight Code">
+                <button type="submit" style="margin-top: 1.5rem;">Unlock Universe</button>
+            </form>
+            <p id="error-msg" style="color: var(--galaxy-pink); margin-top: 1.5rem; display: none;">
+                🚨 Access Denied! Try "love"
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-frame">
+        <!-- Galaxy Gallery -->
+        <div class="galaxy-grid">
+            <div class="cosmic-card active">
+                <img src="https://i.ibb.co/mQGRMgv/IMG-8442.jpg" alt="Cosmic Memory 1">
+                <div class="cosmic-message">You're My Supernova 🌌</div>
+            </div>
+            <div class="cosmic-card">
+                <img src="https://i.ibb.co/Z6NPzW3r/IMG-8443.jpg" alt="Cosmic Memory 2">
+                <div class="cosmic-message">Every Moment with You is Precious 🌟</div>
+            </div>
+            <div class="cosmic-card">
+                <img src="https://i.ibb.co/wNsBKTQ2/IMG-8444.jpg" alt="Cosmic Memory 3">
+                <div class="cosmic-message">You Make My Heart Sing 🎶</div>
+            </div>
+            <div class="cosmic-card">
+                <img src="https://i.ibb.co/fdhQCDSR/IMG-8445.jpg" alt="Cosmic Memory 4">
+                <div class="cosmic-message">Forever Isn't Long Enough with You 💫</div>
+            </div>
+            <div class="cosmic-card">
+                <img src="https://i.ibb.co/KcNtCsBP/IMG-8446.jpg" alt="Cosmic Memory 5">
+                <div class="cosmic-message">My Love for You Grows Daily 🌹</div>
+            </div>
+        </div>
+
+        <!-- Shayri Display -->
+        <div id="shayri-panel"></div>
+
+        <!-- Music Orb -->
+        <div class="music-orb">🎵</div>
+    </div>
+
+    <!-- YouTube Player -->
+    <div id="youtube-player" style="display: none;"></div>
+
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // YouTube Video ID
+        const videoID = 'E8sr8fppw6U';
+
+        // Hinglish Shayri Collection
+        const shayris = [
+            "Teri muskurahat mein chhupi hai meri duniya ki khushiyan 😊",
+            "Dil ki har dhadkan tera naam leti hai 💓",
+            "Tujhse door rehna ab mumkin nahi lagta 🌙",
+            "Tere bina adhura sa lagta hai har pal 🌌",
+            "Mohabbat ki yeh dastaan bas tumhare naam hai 📖",
+            "Teri yaadon mein kho jaana hai meri aadat 🕯️",
+            "Har saans mein teri khushboo basaa hai 🌸",
+            "Dil ki gehraiyon se kehta hoon - I Love You 💌"
+        ];
+
+        // Password Handler
+        document.getElementById('access-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (document.getElementById('passkey').value === 'loveyoumuskaan') {
+                document.getElementById('gateway').style.display = 'none';
+                document.getElementById('main-frame').style.display = 'block';
+                initializeExperience();
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        });
+
+        // YouTube Player Setup
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: videoID,
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    controls: 0,
+                    playlist: videoID
+                },
+                events: {
+                    onReady: () => player.playVideo(),
+                    onStateChange: handlePlayerState
+                }
+            });
+        }
+
+        // Player State Handler
+        function handlePlayerState(event) {
+            const gallery = document.querySelector('.galaxy-grid');
+            const musicBtn = document.querySelector('.music-orb');
+
+            if (event.data === YT.PlayerState.PLAYING) {
+                gallery.style.opacity = '1';
+                document.getElementById('shayri-panel').style.display = 'none';
+                musicBtn.textContent = '🎵';
+            } else {
+                gallery.style.opacity = '0';
+                showRandomShayri();
+                musicBtn.textContent = '🔇';
+            }
+        }
+
+        // Music Control
+        document.querySelector('.music-orb').addEventListener('click', () => {
+            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        });
+
+        // Slideshow System
+        let currentCard = 0;
+        const cards = document.querySelectorAll('.cosmic-card');
+
+        function startSlideshow() {
+            setInterval(() => {
+                cards[currentCard].classList.remove('active');
+                currentCard = (currentCard + 1) % cards.length;
+                cards[currentCard].classList.add('active');
+            }, 5000);
+        }
+
+        // Shayri Display
+        function showRandomShayri() {
+            const shayriPanel = document.getElementById('shayri-panel');
+            shayriPanel.textContent = shayris[Math.floor(Math.random() * shayris.length)];
+            shayriPanel.style.display = 'block';
+        }
+
+        // Initialize Experience
+        function initializeExperience() {
+            startSlideshow();
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
